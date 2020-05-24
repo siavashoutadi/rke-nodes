@@ -1,0 +1,93 @@
+---
+- name: Install docker
+  script: "{{ role_path }}/files/18.09.sh"
+  changed_when: "'appears to already exist' not in result.stdout"
+  register: result
+  tags:
+    - docker
+
+- name: Create an rke user for ssh
+  user:
+    name: "{{ rke_nodes_ssh_user }}"
+    state: present
+    groups:
+      - docker
+    append: yes
+  tags:
+    - ssh_user
+
+- name: Comment swap in fstab
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'
+  tags:
+    - swap
+
+- name: Disable swap
+  command: swapoff -a
+  changed_when: no
+  tags:
+    - swap
+
+- name: Load kernel modules
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ rke_nodes_kernel_modules }}"
+  tags:
+    - kernel_modules
+
+- name: Apply sysctl configuration
+  sysctl:
+    name: net.bridge.bridge-nf-call-iptables
+    value: "1"
+    state: present
+    reload: yes
+  tags:
+    - sysctl
+
+- name: Open ports in firewall for controlplane nodes
+  firewalld:
+    port: "{{ item }}"
+    state: enabled
+    immediate: yes
+    permanent: yes
+  with_items:
+    - "{{ rke_nodes_controlplane_ports }}"
+  when: "'controlplane' in group_names"
+  tags:
+    - firewall
+
+- name: Open ports in firewall for etcd node
+  firewalld:
+    port: "{{ item }}"
+    state: enabled
+    immediate: yes
+    permanent: yes
+  with_items:
+    - "{{ rke_nodes_etcd_ports }}"
+  when: "'etcd' in group_names"
+  tags:
+    - firewall
+
+- name: Open ports in firewall for worker nodes
+  firewalld:
+    port: "{{ item }}"
+    state: enabled
+    immediate: yes
+    permanent: yes
+  with_items:
+    - "{{ rke_nodes_worker_ports }}"
+  when: "'worker' in group_names"
+  tags:
+    - firewall
+
+- name: Set AllowTcpForwarding to yes in sshd_config
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "AllowTcpForwarding"
+    line: "AllowTcpForwarding yes"
+  tags:
+    - sshd_config

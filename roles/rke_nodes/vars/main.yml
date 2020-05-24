@@ -1,0 +1,72 @@
+---
+rke_nodes_controlplane_ports:
+  - 22/tcp
+  - 80/tcp
+  - 443/tcp
+  - 2376/tcp
+  - 2379/tcp
+  - 2380/tcp
+  - 6443/tcp
+  - 9099/tcp
+  - 10250/tcp
+  - 10254/tcp
+  - 30000-32767/tcp
+  - 8472/udp
+  - 30000-32767/udp
+
+rke_nodes_etcd_ports:
+  - 22/tcp
+  - 443/tcp
+  - 2376/tcp
+  - 2379/tcp
+  - 2380/tcp
+  - 6443/tcp
+  - 9099/tcp
+  - 10250/tcp
+  - 8472/udp
+
+rke_nodes_worker_ports:
+  - 22/tcp
+  - 80/tcp
+  - 443/tcp
+  - 2376/tcp
+  - 6443/tcp
+  - 9099/tcp
+  - 10250/tcp
+  - 10254/tcp
+  - 30000-32767/tcp
+  - 8472/udp
+  - 30000-32767/udp
+
+rke_nodes_kernel_modules:
+  - br_netfilter
+  - ip6_udp_tunnel
+  - ip_set
+  - ip_set_hash_ip
+  - ip_set_hash_net
+  - iptable_filter
+  - iptable_nat
+  - iptable_mangle
+  - iptable_raw
+  - nf_conntrack_netlink
+  - nf_conntrack
+  - nf_conntrack_ipv4
+  - nf_defrag_ipv4
+  - nf_nat
+  - nf_nat_ipv4
+  - nf_nat_masquerade_ipv4
+  - nfnetlink
+  - udp_tunnel
+  - veth
+  - vxlan
+  - x_tables
+  - xt_addrtype
+  - xt_conntrack
+  - xt_comment
+  - xt_mark
+  - xt_multiport
+  - xt_nat
+  - xt_recent
+  - xt_set
+  - xt_statistic
+  - xt_tcpudp

@@ -1,0 +1,7 @@
+---
+- name: Install and configure rke nodes
+  hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - rke_nodes

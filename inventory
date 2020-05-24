@@ -1,0 +1,21 @@
+node1 ansible_host=192.168.0.10
+node2 ansible_host=192.168.0.11
+node3 ansible_host=192.168.0.12
+node4 ansible_host=192.168.0.13
+node5 ansible_host=192.168.0.14
+node6 ansible_host=192.168.0.15
+
+[etcd]
+node1
+node2
+node3
+
+[controlplane]
+node1
+node2
+node3
+
+[worker]
+node4
+node5
+node6
