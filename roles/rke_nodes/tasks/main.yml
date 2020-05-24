@@ -16,6 +16,14 @@
   tags:
     - ssh_user
 
+- name: Add the controller host public ssh key to authorized keys for rke user
+  authorized_key:
+    user: rke
+    state: present
+    key: "{{ lookup('file', rke_nodes_ssh_pub_key_path) }}"
+  tags:
+    - ssh_user
+
 - name: Comment swap in fstab
   replace:
     path: /etc/fstab
