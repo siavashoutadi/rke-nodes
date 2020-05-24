@@ -13,7 +13,7 @@ $ cd rke-nodes
 
 2- Update the inventory to match the environment.
 
-- Updatet he IP address of ansible_hosts for nodes aliases.
+- Updatet the IP address of ansible_host for nodes aliases.
 - Assign the nodes to appropriate group
 
 3- Install ansible
