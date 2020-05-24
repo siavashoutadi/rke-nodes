@@ -18,7 +18,7 @@
 
 - name: Add the controller host public ssh key to authorized keys for rke user
   authorized_key:
-    user: rke
+    user: "{{ rke_nodes_ssh_user }}"
     state: present
     key: "{{ lookup('file', rke_nodes_ssh_pub_key_path) }}"
   tags:
