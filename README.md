@@ -13,7 +13,7 @@ $ cd rke-nodes
 
 2- Update the inventory to match the environment.
 
-- Updatet the IP address of ansible_host for nodes aliases.
+- Update the IP address of ansible_host for nodes aliases.
 - Assign the nodes to appropriate group
 
 3- Install ansible
@@ -48,7 +48,7 @@ rke_nodes_ssh_user: rke
 rke_nodes_ssh_pub_key_path: "{{ lookup('env','HOME') }}/.ssh/id_rsa.pub"
 ```
 
-They can be overriden by putting the values in inventory or via extra-var when running the playbook. For example:
+They can be overriden by putting the values in inventory or via extra-var parameter when running the playbook. For example:
 
 ```bash
 $ ansible-playbook --user root site.yml --extra-var "rke_nodes_ssh_user=admin rke_nodes_ssh_pub_key_path=/path/to/key"
