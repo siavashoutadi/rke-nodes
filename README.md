@@ -37,3 +37,19 @@ $ eval $(ssh-agent)
 $ ssh add ~/.ssh/id_rsa
 $ ansible-playbook --user root site.yml
 ```
+
+## Override the default value of variables
+
+There are two varibales that the user can override. They are shown in the following snippet with their
+default value.
+
+```yml
+rke_nodes_ssh_user: rke
+rke_nodes_ssh_pub_key_path: "{{ lookup('env','HOME') }}/.ssh/id_rsa.pub"
+```
+
+They can be overriden by putting the values in inventory or via extra variables. For example:
+
+```bash
+$ ansible-playbook --user root site.yml --extra-var "rke_nodes_ssh_user=admin rke_nodes_ssh_pub_key_path=/path/to/key"
+```
